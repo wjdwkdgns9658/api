@@ -2,32 +2,47 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>지도 확대 축소 막기</title>
+    <title>지도 생성하기</title>
     
 </head>
 <body>
+<!-- 지도를 표시할 div 입니다 -->
+<div id="mapBtns">
+    <!-- <button class="btn" data-map="[위도, 경도]">신도림</button> -->
+    <button class="btn" data-map="[33.450701, 126.570667]"  >신도림</button>
+    <button class="btn" data-map="[37.485856, 126.897438]">미금</button>
+    <button class="btn" data-map="[33.450701, 126.570667]">강남</button>
+</div>
 <div id="map" style="width:100%;height:350px;"></div>
-<p>
-<button onclick="setZoomable(false)">지도 확대/축소 끄기</button>
-<button onclick="setZoomable(true)">지도 확대/축소 켜기</button>
-</p>
 
-<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3ce41bf3e2f515302988597b0e13911d"></script>
+
+<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=a1c75937895aeb9827382af136329ad2"></script>
 <script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng(37.507063, 126.890204), // 지도의 중심좌표
-         // draggable: false, // 지도를 생성할때 지도 이동 및 확대/축소를 막으려면 draggable: false 옵션을 추가하세요
-        level: 3 // 지도의 확대 레벨
-    };
+//33.450701, 126.570667
 
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-        
-// 버튼 클릭에 따라 지도 확대, 축소 기능을 막거나 풀고 싶은 경우에는 map.setZoomable 함수를 사용합니다
-function setZoomable(zoomable) {
-    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
-    map.setZoomable(zoomable);    
-}
+    mapoutput (33.450701, 126.570667); // 실행할때 값
+
+    const btns = document.querySelectorAll("#mapBtns .btn");
+    btns.forEach(function( ele , idx ){
+        ele.addEventListener('click', function(){
+            console.log(`${ele}가 클릭하면 ${idx}번째 버튼을 클릭 ${this}가 클릭`);
+            console.log(this.dataset.map, Array.isArray(this.dataset.map) )
+            // mapoutput (33.450701, 126.570667); 
+        })
+    })
+
+    function  mapoutput (a, b){ // 모형
+        const mapContainer = document.getElementById('map'),  
+        mapOption = { 
+            center: new kakao.maps.LatLng(a, b), 
+            level: 3 
+        };
+
+        const map = new kakao.maps.Map(mapContainer, mapOption); 
+    }
+
+
+
 </script>
 </body>
 </html>
